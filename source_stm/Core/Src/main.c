@@ -86,15 +86,56 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
-
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  enum led_state{
+	  RED,
+	  YELLOW
+  };
+  void turn_on_Led(enum led_state led_on){
+	  if(led_on == RED) {
+		  HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, RESET);
+	  }
+	  if(led_on == YELLOW) {
+		  HAL_GPIO_WritePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin, RESET);
+	  }
+  }
+  void turn_off_Led(enum led_state led_off){
+	  if(led_off == RED) {
+		  HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, SET);
+	  }
+	  if(led_off == YELLOW) {
+		  HAL_GPIO_WritePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin, SET);
+	  }
+  }
+  enum led_state current_state = RED;
+  int counter = 2;
   while (1)
   {
     /* USER CODE END WHILE */
-
+	  switch(current_state){
+	  case RED :
+		  turn_on_Led(RED);
+		  turn_off_Led(YELLOW);
+		  counter--;
+		  if(counter == 0){
+			  counter = 2;
+			  current_state = YELLOW;
+		  }
+		  break;
+	  case YELLOW:
+		  turn_on_Led(YELLOW);
+		  turn_off_Led(RED);
+		  counter--;
+		  if(counter == 0){
+			  counter = 2;
+			  current_state = RED;
+		  }
+		  break;
+	  }
+	  HAL_Delay(1000);
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -148,14 +189,14 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOA_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, LED_RED_Pin|LED_YELLOW_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pin : LED_RED_Pin */
-  GPIO_InitStruct.Pin = LED_RED_Pin;
+  /*Configure GPIO pins : LED_RED_Pin LED_YELLOW_Pin */
+  GPIO_InitStruct.Pin = LED_RED_Pin|LED_YELLOW_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(LED_RED_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
 }
 
