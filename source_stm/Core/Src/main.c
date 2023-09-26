@@ -91,8 +91,87 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  enum traffic_state{
+	  RED1_GREEN2,
+	  RED1_YELLOW2,
+	  RED2_GREEN1,
+	  RED2_YELLOW1
+ };
+  void set_traffic_light(enum traffic_state state){
+	  switch(state){
+	  	  case  RED1_GREEN2:
+			  HAL_GPIO_WritePin(LED_RED1_GPIO_Port, LED_RED1_Pin, RESET);
+			  HAL_GPIO_WritePin(LED_GREEN1_GPIO_Port, LED_GREEN1_Pin, SET);
+			  HAL_GPIO_WritePin(LED_YELLOW1_GPIO_Port, LED_YELLOW1_Pin, SET);
+			  HAL_GPIO_WritePin(LED_RED2_GPIO_Port, LED_RED2_Pin, SET);
+			  HAL_GPIO_WritePin(LED_GREEN2_GPIO_Port, LED_GREEN2_Pin, RESET);
+			  HAL_GPIO_WritePin(LED_YELLOW2_GPIO_Port, LED_YELLOW2_Pin, SET);
+			  break;
+	  	  case RED1_YELLOW2:
+			  HAL_GPIO_WritePin(LED_RED1_GPIO_Port, LED_RED1_Pin, RESET);
+			  HAL_GPIO_WritePin(LED_GREEN1_GPIO_Port, LED_GREEN1_Pin, SET);
+			  HAL_GPIO_WritePin(LED_YELLOW1_GPIO_Port, LED_YELLOW1_Pin, SET);
+			  HAL_GPIO_WritePin(LED_RED2_GPIO_Port, LED_RED2_Pin, SET);
+			  HAL_GPIO_WritePin(LED_GREEN2_GPIO_Port, LED_GREEN2_Pin, SET);
+			  HAL_GPIO_WritePin(LED_YELLOW2_GPIO_Port, LED_YELLOW2_Pin, RESET);
+			  break;
+	  	  case RED2_GREEN1:
+			  HAL_GPIO_WritePin(LED_RED1_GPIO_Port, LED_RED1_Pin, SET);
+			  HAL_GPIO_WritePin(LED_GREEN1_GPIO_Port, LED_GREEN1_Pin, RESET);
+			  HAL_GPIO_WritePin(LED_YELLOW1_GPIO_Port, LED_YELLOW1_Pin, SET);
+			  HAL_GPIO_WritePin(LED_RED2_GPIO_Port, LED_RED2_Pin, RESET);
+			  HAL_GPIO_WritePin(LED_GREEN2_GPIO_Port, LED_GREEN2_Pin, SET);
+			  HAL_GPIO_WritePin(LED_YELLOW2_GPIO_Port, LED_YELLOW2_Pin, SET);
+			  break;
+	  	  case RED2_YELLOW1:
+			  HAL_GPIO_WritePin(LED_RED1_GPIO_Port, LED_RED1_Pin, SET);
+			  HAL_GPIO_WritePin(LED_GREEN1_GPIO_Port, LED_GREEN1_Pin, SET);
+			  HAL_GPIO_WritePin(LED_YELLOW1_GPIO_Port, LED_YELLOW1_Pin, RESET);
+			  HAL_GPIO_WritePin(LED_RED2_GPIO_Port, LED_RED2_Pin, RESET);
+			  HAL_GPIO_WritePin(LED_GREEN2_GPIO_Port, LED_GREEN2_Pin, SET);
+			  HAL_GPIO_WritePin(LED_YELLOW2_GPIO_Port, LED_YELLOW2_Pin, SET);
+			  break;
+	  }
+  }
+  int counter = 3;
+  enum traffic_state current_state = RED1_GREEN2;
   while (1)
   {
+	  switch(current_state){
+	  	  case RED1_GREEN2:
+	  		  set_traffic_light(RED1_GREEN2);
+	  		  counter--;
+	  		  if(counter <= 0){
+	  			  counter = 2;
+	  			  current_state = RED1_YELLOW2;
+	  		  }
+	  		  break;
+	  	  case RED1_YELLOW2:
+	  		  set_traffic_light(RED1_YELLOW2);
+	  		  counter--;
+	  		  if(counter <= 0){
+	  			  counter = 3;
+	  			  current_state = RED2_GREEN1;
+	  		  }
+	  		  break;
+	  	  case RED2_GREEN1:
+	  		  set_traffic_light(RED2_GREEN1);
+	  		  counter--;
+	  		  if(counter <= 0){
+	  			  counter = 2;
+	  			  current_state = RED2_YELLOW1;
+	  		  }
+	  		  break;
+	  	  case RED2_YELLOW1:
+	  		  set_traffic_light(RED2_YELLOW1);
+	  		  counter--;
+	  		  if(counter <= 0){
+	  			  counter = 3;
+	  			  current_state = RED1_GREEN2;
+	  		  }
+	  		  break;
+	  }
+	  HAL_Delay(1000);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
