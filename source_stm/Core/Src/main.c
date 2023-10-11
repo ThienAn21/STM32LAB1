@@ -142,6 +142,8 @@ int main(void)
  	  	  case 11:
  	  		  HAL_GPIO_WritePin(LED_11_GPIO_Port, LED_11_Pin, RESET);
  	  		  break;
+ 	  	  default:
+ 	  		  break;
  	  }
    }
   void set_clock_state(int sec_state, int min_state, int hour_state){
