@@ -183,6 +183,8 @@ int main(void)
 		  HAL_GPIO_WritePin(LED_F1_GPIO_Port, LED_F1_Pin, RESET);
 		  HAL_GPIO_WritePin(LED_G1_GPIO_Port, LED_G1_Pin, RESET);
 		  break;
+	  default:
+	  		  break;
 	  }
   }
   void display7SEG2(int state){
@@ -277,6 +279,8 @@ int main(void)
 		  HAL_GPIO_WritePin(LED_F2_GPIO_Port, LED_F2_Pin, RESET);
 		  HAL_GPIO_WritePin(LED_G2_GPIO_Port, LED_G2_Pin, RESET);
 		  break;
+	  default:
+	  		  break;
 	  }
   }
   enum traffic_state{
@@ -319,6 +323,8 @@ int main(void)
 			  HAL_GPIO_WritePin(LED_GREEN2_GPIO_Port, LED_GREEN2_Pin, SET);
 			  HAL_GPIO_WritePin(LED_YELLOW2_GPIO_Port, LED_YELLOW2_Pin, SET);
 			  break;
+	  	  default:
+	  		  break;
 	  }
   }
   int counter = 3;
@@ -381,6 +387,8 @@ int main(void)
 	  			  count_seg2 = 3;
 	  			  current_state = RED1_GREEN2;
 	  		  }
+	  		  break;
+	  	  default:
 	  		  break;
 	  }
 	  HAL_Delay(1000);
