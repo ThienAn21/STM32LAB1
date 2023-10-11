@@ -128,6 +128,8 @@ int main(void)
 	  	  case 11:
 	  		  HAL_GPIO_WritePin(LED_11_GPIO_Port, LED_11_Pin, SET);
 	  		  break;
+	  	  default:
+	  		  break;
 	  }
   }
   /* USER CODE BEGIN WHILE */
