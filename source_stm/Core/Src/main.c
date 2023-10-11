@@ -142,6 +142,8 @@ int main(void)
 			  current_state = RED;
 		  }
 		  break;
+	  default:
+		  break;
 	  }
 	  HAL_Delay(1000);
     /* USER CODE END WHILE */
