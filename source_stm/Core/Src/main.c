@@ -131,6 +131,8 @@ int main(void)
 			  HAL_GPIO_WritePin(LED_GREEN2_GPIO_Port, LED_GREEN2_Pin, SET);
 			  HAL_GPIO_WritePin(LED_YELLOW2_GPIO_Port, LED_YELLOW2_Pin, SET);
 			  break;
+	  	  default:
+	  		  break;
 	  }
   }
   int counter = 3;
@@ -169,6 +171,8 @@ int main(void)
 	  			  counter = 3;
 	  			  current_state = RED1_GREEN2;
 	  		  }
+	  		  break;
+	  	  default:
 	  		  break;
 	  }
 	  HAL_Delay(1000);
