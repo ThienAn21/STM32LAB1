@@ -183,6 +183,8 @@ int main(void)
 		  HAL_GPIO_WritePin(LED_F_GPIO_Port, LED_F_Pin, RESET);
 		  HAL_GPIO_WritePin(LED_G_GPIO_Port, LED_G_Pin, RESET);
 		  break;
+	  default:
+		  break;
 	  }
   }
   int counter = 0;
